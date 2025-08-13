@@ -1,5 +1,6 @@
 plugins {
     java
+    id("maven-publish")
     id("org.springframework.boot") version "3.5.4"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -11,6 +12,8 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+    withSourcesJar()
+    withJavadocJar()
 }
 
 repositories {
@@ -33,10 +36,47 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.4")
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named<Jar>("jar") {
+    archiveClassifier = ""
+    enabled = true
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    archiveClassifier = "boot"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/javirub/deezer-spring-boot-starter")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            from(components["java"])
+
+            groupId = "io.github.javirub"
+            artifactId = "deezer-spring-boot-starter"
+            version = project.version.toString()
+
+            pom {
+                name.set("Deezer Spring Boot Starter")
+                description.set("Spring Boot starter for Deezer API integration")
+                url.set("https://github.com/javirub/deezer-spring-boot-starter")
+            }
+        }
+    }
 }
