@@ -68,6 +68,16 @@ publishing {
         register<MavenPublication>("gpr") {
             from(components["java"])
 
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
+
+
             groupId = "io.github.javirub"
             artifactId = "deezer-spring-boot-starter"
             version = project.version.toString()
