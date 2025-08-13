@@ -50,7 +50,7 @@ tasks.named<Jar>("jar") {
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    archiveClassifier = "boot"
+    enabled = false
 }
 
 publishing {
