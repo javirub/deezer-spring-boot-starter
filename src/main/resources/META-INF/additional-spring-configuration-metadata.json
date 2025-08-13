@@ -1,0 +1,50 @@
+{
+  "properties": [
+    {
+      "name": "deezer.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the Deezer starter. Set to false to completely disable the Deezer client configuration.",
+      "defaultValue": true
+    },
+    {
+      "name": "deezer.client-type",
+      "type": "io.github.javirub.deezerspringbootstarter.config.DeezerProperties$ClientType",
+      "description": "Type of HTTP client to use for Deezer API calls. REACTIVE uses WebClient (recommended for high concurrency), BLOCKING uses RestTemplate (simpler but less scalable).",
+      "defaultValue": "REACTIVE"
+    },
+    {
+      "name": "deezer.cache.cleanup-interval",
+      "type": "java.lang.Long",
+      "description": "Cache cleanup interval in milliseconds. How often expired entries are removed from the cache.",
+      "defaultValue": 60000
+    }
+  ],
+  "hints": [
+    {
+      "name": "deezer.client-type",
+      "values": [
+        {
+          "value": "REACTIVE",
+          "description": "Use WebClient for non-blocking I/O (recommended for high concurrency applications like games)"
+        },
+        {
+          "value": "BLOCKING",
+          "description": "Use RestTemplate for blocking I/O (simpler but less scalable)"
+        }
+      ]
+    },
+    {
+      "name": "deezer.cache.enabled",
+      "values": [
+        {
+          "value": true,
+          "description": "Enable caching to improve performance by reducing redundant API calls"
+        },
+        {
+          "value": false,
+          "description": "Disable caching - all API calls will be made directly"
+        }
+      ]
+    }
+  ]
+}
