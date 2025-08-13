@@ -158,7 +158,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Search for tracks on Deezer using the provided search options.
-     * Endpoint: GET https://api.deezer.com/search?q={query}&strict={strict}&order={order}
+     * Endpoint: GET https://api.deezer.com/search?q={query}&amp;strict={strict}&amp;order={order}
      * 
      * <p>Examples:
      * <pre>

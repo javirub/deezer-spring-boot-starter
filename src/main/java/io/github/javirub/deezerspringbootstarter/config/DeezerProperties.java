@@ -89,6 +89,13 @@ public class DeezerProperties {
     public static class Cache {
         
         /**
+         * Default constructor for Cache configuration.
+         */
+        public Cache() {
+            // Default constructor
+        }
+        
+        /**
          * Whether to enable response caching.
          * When enabled, API responses are cached to reduce redundant requests.
          */

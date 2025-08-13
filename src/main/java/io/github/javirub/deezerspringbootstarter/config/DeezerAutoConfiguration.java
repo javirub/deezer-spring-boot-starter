@@ -29,6 +29,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class DeezerAutoConfiguration {
 
     /**
+     * Default constructor for DeezerAutoConfiguration.
+     */
+    public DeezerAutoConfiguration() {
+        // Default constructor
+    }
+
+    /**
      * Creates a reactive cache for the Deezer client.
      *
      * @param properties The Deezer configuration properties

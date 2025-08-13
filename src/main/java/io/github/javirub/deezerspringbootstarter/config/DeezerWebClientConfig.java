@@ -17,11 +17,29 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
- * WebClient configuration for the Deezer API.
+ * Configuration class for creating and configuring WebClient instances for the Deezer API.
+ * 
+ * <p>This configuration provides a properly configured WebClient bean that includes:
+ * <ul>
+ *   <li>Connection and read timeout settings from DeezerProperties</li>
+ *   <li>Optimized HTTP client with Netty for reactive operations</li>
+ *   <li>Increased buffer size to handle large API responses</li>
+ *   <li>Request logging for debugging purposes</li>
+ * </ul>
+ * 
+ * <p>The WebClient is primarily used by the reactive Deezer client implementation
+ * to make non-blocking HTTP requests to the Deezer API.
  */
 @Configuration
 @EnableConfigurationProperties(DeezerProperties.class)
 public class DeezerWebClientConfig {
+
+    /**
+     * Default constructor for DeezerWebClientConfig.
+     */
+    public DeezerWebClientConfig() {
+        // Default constructor
+    }
 
     /**
      * Creates and configures the WebClient for Deezer API.

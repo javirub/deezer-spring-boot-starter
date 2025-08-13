@@ -86,7 +86,7 @@ public interface DeezerClient {
 
     /**
      * Search for tracks on Deezer using the provided search options (blocking).
-     * Endpoint: GET https://api.deezer.com/search?q={query}&strict={strict}&order={order}
+     * Endpoint: GET https://api.deezer.com/search?q={query}&amp;strict={strict}&amp;order={order}
      *
      * @param options The search options built using SearchOptions.builder()
      * @return The search results
