@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,9 +20,9 @@ public class DeezerClientImpl implements DeezerClient {
 
     /**
      * Creates a new DeezerClientImpl with the provided RestTemplate and base URL.
-     * 
+     *
      * @param restTemplate The RestTemplate for making HTTP requests
-     * @param baseUrl The base URL for the Deezer API
+     * @param baseUrl      The base URL for the Deezer API
      */
     public DeezerClientImpl(RestTemplate restTemplate, String baseUrl) {
         this.restTemplate = restTemplate;
@@ -32,12 +31,12 @@ public class DeezerClientImpl implements DeezerClient {
 
     /**
      * Generic method to get a resource by ID using RestTemplate.
-     * 
-     * @param endpoint The API endpoint
-     * @param id The resource ID
+     *
+     * @param endpoint     The API endpoint
+     * @param id           The resource ID
      * @param responseType The expected response type
-     * @param <T> The type of resource
-     * @param <ID> The type of ID
+     * @param <T>          The type of resource
+     * @param <ID>         The type of ID
      * @return The requested resource
      */
     private <T, ID> T getById(String endpoint, ID id, Class<T> responseType) {
@@ -88,20 +87,11 @@ public class DeezerClientImpl implements DeezerClient {
 
     @Override
     public Search search(SearchOptions options) {
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("q", options.buildQueryString());
-        
-        if (options.getStrict() != null) {
-            queryParams.put("strict", options.getStrict() ? "on" : "off");
-        }
-        
-        if (options.getOrder() != null && !options.getOrder().isEmpty()) {
-            queryParams.put("order", options.getOrder());
-        }
+        Map<String, Object> queryParams = options.buildQueryParams();
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUriString(baseUrl + "/search");
         queryParams.forEach(uriBuilder::queryParam);
-        
+
         String url = uriBuilder.toUriString();
         ResponseEntity<Search> response = restTemplate.getForEntity(url, Search.class);
         return response.getBody();

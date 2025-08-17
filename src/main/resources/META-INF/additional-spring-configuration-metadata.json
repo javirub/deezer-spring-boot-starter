@@ -8,9 +8,57 @@
     },
     {
       "name": "deezer.client-type",
-      "type": "io.github.javirub.deezerspringbootstarter.config.DeezerProperties$ClientType",
+      "type": "io.github.javirub.deezerspringbootstarter.properties.DeezerProperties$ClientType",
       "description": "Type of HTTP client to use for Deezer API calls. REACTIVE uses WebClient (recommended for high concurrency), BLOCKING uses RestTemplate (simpler but less scalable).",
       "defaultValue": "REACTIVE"
+    },
+    {
+      "name": "deezer.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL for the Deezer API. Should not be changed unless using a proxy or different API endpoint.",
+      "defaultValue": "https://api.deezer.com"
+    },
+    {
+      "name": "deezer.connection-timeout",
+      "type": "java.lang.Integer",
+      "description": "Connection timeout in milliseconds. Maximum time to wait when establishing a connection to the Deezer API.",
+      "defaultValue": 5000
+    },
+    {
+      "name": "deezer.read-timeout",
+      "type": "java.lang.Integer",
+      "description": "Read timeout in milliseconds. Maximum time to wait for a response from the Deezer API.",
+      "defaultValue": 5000
+    },
+    {
+      "name": "deezer.max-retries",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of retry attempts for failed requests. Only applies to server errors (5xx) and network issues.",
+      "defaultValue": 3
+    },
+    {
+      "name": "deezer.backoff-delay",
+      "type": "java.lang.Long",
+      "description": "Initial backoff delay in milliseconds for retry attempts. The delay increases exponentially with each retry.",
+      "defaultValue": 300
+    },
+    {
+      "name": "deezer.cache.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable response caching. When enabled, API responses are cached to reduce redundant requests.",
+      "defaultValue": true
+    },
+    {
+      "name": "deezer.cache.ttl",
+      "type": "java.lang.Integer",
+      "description": "Cache time-to-live in seconds. How long cached entries remain valid before being refreshed.",
+      "defaultValue": 60
+    },
+    {
+      "name": "deezer.cache.max-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of entries in the cache. When exceeded, the least recently used entries are evicted.",
+      "defaultValue": 1000
     },
     {
       "name": "deezer.cache.cleanup-interval",
@@ -25,11 +73,11 @@
       "values": [
         {
           "value": "REACTIVE",
-          "description": "Use WebClient for non-blocking I/O (recommended for high concurrency applications like games)"
+          "description": "Use WebClient for non-blocking I/O (recommended for high concurrency applications like games)."
         },
         {
           "value": "BLOCKING",
-          "description": "Use RestTemplate for blocking I/O (simpler but less scalable)"
+          "description": "Use RestTemplate for blocking I/O (simpler but less scalable)."
         }
       ]
     },
@@ -38,11 +86,11 @@
       "values": [
         {
           "value": true,
-          "description": "Enable caching to improve performance by reducing redundant API calls"
+          "description": "Enable caching to improve performance by reducing redundant API calls."
         },
         {
           "value": false,
-          "description": "Disable caching - all API calls will be made directly"
+          "description": "Disable caching - all API calls will be made directly."
         }
       ]
     }

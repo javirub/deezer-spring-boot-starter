@@ -1,5 +1,6 @@
 package io.github.javirub.deezerspringbootstarter.config;
 
+import io.github.javirub.deezerspringbootstarter.properties.DeezerProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -38,7 +39,6 @@ public class DeezerWebClientConfig {
      * Default constructor for DeezerWebClientConfig.
      */
     public DeezerWebClientConfig() {
-        // Default constructor
     }
 
     /**

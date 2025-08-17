@@ -4,6 +4,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
+//TODO: Possibility of using external cache mechanism, including distributed like redis
 /**
  * Interface for a reactive cache.
  * 

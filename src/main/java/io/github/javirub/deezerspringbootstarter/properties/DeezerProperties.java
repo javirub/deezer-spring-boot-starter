@@ -1,4 +1,4 @@
-package io.github.javirub.deezerspringbootstarter.config;
+package io.github.javirub.deezerspringbootstarter.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * <pre>
  * # Basic configuration
  * deezer.enabled=true
- * deezer.base-url=https://api.deezer.com
+ * deezer.base-url=<a href="https://api.deezer.com">https://api.deezer.com</a>
  * deezer.client-type=REACTIVE
  * deezer.connection-timeout=5000
  * deezer.read-timeout=5000
@@ -30,6 +30,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "deezer")
 public class DeezerProperties {
+
+    /**
+     * Default constructor for DeezerProperties.
+     * Creates a new instance with default configuration values.
+     */
+    public DeezerProperties() {
+        // Default constructor
+    }
 
     /**
      * Whether to enable the Deezer starter.
@@ -109,7 +117,7 @@ public class DeezerProperties {
 
         /**
          * Maximum number of entries in the cache.
-         * When exceeded, least recently used entries are evicted.
+         * When exceeded, the least recently used entries are evicted.
          */
         private int maxSize = 1000;
 

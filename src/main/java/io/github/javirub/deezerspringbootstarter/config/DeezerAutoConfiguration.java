@@ -6,6 +6,7 @@ import io.github.javirub.deezerspringbootstarter.cache.InMemoryReactiveCache;
 import io.github.javirub.deezerspringbootstarter.cache.ReactiveCache;
 import io.github.javirub.deezerspringbootstarter.client.DeezerClientImpl;
 import io.github.javirub.deezerspringbootstarter.client.ReactiveDeezerClientImpl;
+import io.github.javirub.deezerspringbootstarter.properties.DeezerProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -17,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * Auto-configuration for the Deezer API client.
+ * Autoconfiguration for the Deezer API client.
  * This class automatically configures all the necessary beans for the Deezer client
  * when the starter is included in a project.
  */

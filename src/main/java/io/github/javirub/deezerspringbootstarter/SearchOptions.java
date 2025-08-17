@@ -3,13 +3,49 @@ package io.github.javirub.deezerspringbootstarter;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Options for searching tracks on Deezer API.
  * This class uses the Builder pattern for easier configuration of search parameters.
+ * 
+ * <p>Use {@code SearchOptions.builder()} to create instances of this class.
  */
 @Builder
 @Getter
 public class SearchOptions {
+    
+    /**
+     * Constructor for SearchOptions with all parameters.
+     * 
+     * @param query Basic search query string
+     * @param strict If true, disables the fuzzy mode in search results
+     * @param order Sort order for search results
+     * @param artist Filter results by artist name
+     * @param album Filter results by album title
+     * @param track Filter results by track title
+     * @param label Filter results by label name
+     * @param durationMin Filter results by minimum track duration in seconds
+     * @param durationMax Filter results by maximum track duration in seconds
+     * @param bpmMin Filter results by minimum BPM (beats per minute)
+     * @param bpmMax Filter results by maximum BPM (beats per minute)
+     */
+    public SearchOptions(String query, Boolean strict, String order, String artist, String album, 
+                        String track, String label, Integer durationMin, Integer durationMax, 
+                        Integer bpmMin, Integer bpmMax) {
+        this.query = query;
+        this.strict = strict;
+        this.order = order;
+        this.artist = artist;
+        this.album = album;
+        this.track = track;
+        this.label = label;
+        this.durationMin = durationMin;
+        this.durationMax = durationMax;
+        this.bpmMin = bpmMin;
+        this.bpmMax = bpmMax;
+    }
     
     /**
      * Basic search query string.
@@ -81,7 +117,7 @@ public class SearchOptions {
         
         StringBuilder queryBuilder = new StringBuilder();
         
-        // Add basic query if provided (will be combined with advanced options)
+        // Add a basic query if provided (will be combined with advanced options)
         if (query != null && !query.isEmpty()) {
             queryBuilder.append(query).append(" ");
         }
@@ -137,5 +173,26 @@ public class SearchOptions {
                 || durationMax != null
                 || bpmMin != null
                 || bpmMax != null;
+    }
+
+    /**
+     * Builds query parameters map for Deezer API requests.
+     * Includes the main query string and additional parameters like strict mode and order.
+     *
+     * @return A map containing all query parameters for the API request
+     */
+    public Map<String, Object> buildQueryParams() {
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("q", buildQueryString());
+
+        if (strict != null) {
+            queryParams.put("strict", strict ? "on" : "off");
+        }
+
+        if (order != null && !order.isEmpty()) {
+            queryParams.put("order", order);
+        }
+
+        return queryParams;
     }
 }

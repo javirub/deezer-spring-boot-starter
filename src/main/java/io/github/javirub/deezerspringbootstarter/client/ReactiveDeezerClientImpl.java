@@ -3,7 +3,7 @@ package io.github.javirub.deezerspringbootstarter.client;
 import io.github.javirub.deezerspringbootstarter.ReactiveDeezerClient;
 import io.github.javirub.deezerspringbootstarter.SearchOptions;
 import io.github.javirub.deezerspringbootstarter.cache.ReactiveCache;
-import io.github.javirub.deezerspringbootstarter.config.DeezerProperties;
+import io.github.javirub.deezerspringbootstarter.properties.DeezerProperties;
 import io.github.javirub.deezerspringbootstarter.domain.*;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -70,7 +69,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get an album by its ID.
-     * Endpoint: GET https://api.deezer.com/album/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/album/{id}">https://api.deezer.com/album/{id}</a>
      *
      * @param albumId The album ID
      * @return A Mono that emits the album
@@ -81,7 +80,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get an artist by its ID.
-     * Endpoint: GET https://api.deezer.com/artist/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/artist/{id}">https://api.deezer.com/artist/{id}</a>
      *
      * @param artistId The artist ID
      * @return A Mono that emits the artist
@@ -92,7 +91,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get an editorial by its ID.
-     * Endpoint: GET https://api.deezer.com/editorial/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/editorial/{id}">https://api.deezer.com/editorial/{id}</a>
      *
      * @param editorialId The editorial ID
      * @return A Mono that emits the editorial
@@ -103,7 +102,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get a genre by its ID.
-     * Endpoint: GET https://api.deezer.com/genre/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/genre/{id}">https://api.deezer.com/genre/{id}</a>
      *
      * @param genreId The genre ID
      * @return A Mono that emits the genre
@@ -114,7 +113,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get a playlist by its ID.
-     * Endpoint: GET https://api.deezer.com/playlist/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/playlist/{id}">https://api.deezer.com/playlist/{id}</a>
      *
      * @param playlistId The playlist ID
      * @return A Mono that emits the playlist
@@ -125,7 +124,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get a radio by its ID.
-     * Endpoint: GET https://api.deezer.com/radio/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/radio/{id}">https://api.deezer.com/radio/{id}</a>
      *
      * @param radioId The radio ID
      * @return A Mono that emits the radio
@@ -136,7 +135,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get a track by its ID.
-     * Endpoint: GET https://api.deezer.com/track/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/track/{id}">https://api.deezer.com/track/{id}</a>
      *
      * @param trackId The track ID
      * @return A Mono that emits the track
@@ -147,7 +146,7 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Get a user by its ID.
-     * Endpoint: GET https://api.deezer.com/user/{id}
+     * Endpoint: GET <a href="https://api.deezer.com/user/{id}">https://api.deezer.com/user/{id}</a>
      *
      * @param userId The user ID
      * @return A Mono that emits the user
@@ -158,20 +157,20 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
 
     /**
      * Search for tracks on Deezer using the provided search options.
-     * Endpoint: GET https://api.deezer.com/search?q={query}&amp;strict={strict}&amp;order={order}
-     * 
+     * Endpoint: GET <a href="https://api.deezer.com/search?q=">https://api.deezer.com/search?q={query}&amp;strict={strict}&amp;order={order}</a>
+     *
      * <p>Examples:
      * <pre>
      * // Basic search
      * deezerClient.search(SearchOptions.builder().query("eminem").build());
-     * 
+     *
      * // Search with strict mode and custom order
      * deezerClient.search(SearchOptions.builder()
      *     .query("eminem")
      *     .strict(true)
      *     .order("RATING_DESC")
      *     .build());
-     * 
+     *
      * // Advanced search with multiple criteria
      * deezerClient.search(SearchOptions.builder()
      *     .artist("aloe blacc")
@@ -179,22 +178,13 @@ public class ReactiveDeezerClientImpl implements ReactiveDeezerClient {
      *     .durationMin(180)
      *     .build());
      * </pre>
-     * 
+     *
      * @param options The search options built using SearchOptions.builder()
      * @return A Mono that emits the search results
      * @see SearchOptions
      */
     public Mono<Search> search(SearchOptions options) {
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("q", options.buildQueryString());
-        
-        if (options.getStrict() != null) {
-            queryParams.put("strict", options.getStrict() ? "on" : "off");
-        }
-        
-        if (options.getOrder() != null && !options.getOrder().isEmpty()) {
-            queryParams.put("order", options.getOrder());
-        }
+        Map<String, Object> queryParams = options.buildQueryParams();
         
         // Generate a unique cache key based on search parameters
         StringBuilder cacheKeyBuilder = new StringBuilder("search:");

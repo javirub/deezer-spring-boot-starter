@@ -2,6 +2,7 @@ package io.github.javirub.deezerspringbootstarter.config;
 
 import io.github.javirub.deezerspringbootstarter.client.ReactiveDeezerClientImpl;
 import io.github.javirub.deezerspringbootstarter.cache.ReactiveCache;
+import io.github.javirub.deezerspringbootstarter.properties.DeezerProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -11,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for DeezerAutoConfiguration.
- * Verifies that all the necessary beans are created when the auto-configuration is applied.
+ * Verifies that all the necessary beans are created when the autoconfiguration is applied.
  */
 class DeezerAutoConfigurationTest {
 

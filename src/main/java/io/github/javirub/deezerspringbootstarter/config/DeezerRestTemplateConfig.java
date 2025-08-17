@@ -1,5 +1,6 @@
 package io.github.javirub.deezerspringbootstarter.config;
 
+import io.github.javirub.deezerspringbootstarter.properties.DeezerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,6 @@ public class DeezerRestTemplateConfig {
      * Default constructor for DeezerRestTemplateConfig.
      */
     public DeezerRestTemplateConfig() {
-        // Default constructor
     }
 
     /**
